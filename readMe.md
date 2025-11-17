@@ -11,7 +11,7 @@ Type !throw in lumi's twitch chat to throw a lemon.
     - ebiten
 
 ## how to run
-1. In the code, edit the channel variable to the name of the twitch channel you want to use.
+1. Pick the twitch channel when loading the page by appending `?channel=<name>` to the URL (for example `http://127.0.0.1:8000/dist/index.html?channel=yourchannel`). If the parameter is omitted, the game defaults to `kanekolumi`.
 
 2. Build the game:  
     On Linux & MacOS:
@@ -36,5 +36,5 @@ Type !throw in lumi's twitch chat to throw a lemon.
 [Demo Version linked to Kaneko Lumi's twitch chat](https://ca6.dev/stream/pinatalumi/)
 
 ### How to use
-Include the demo version as a source browser in OBS "https://ca6.dev/stream/pinatalumi/".
+Include the demo version as a source browser in OBS "https://ca6.dev/stream/pinatalumi/?=yourchannel".
 Once done, the pinata will react to the !throw command in Kaneko Lumi's twitch chat.

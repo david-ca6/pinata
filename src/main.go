@@ -8,6 +8,7 @@ import (
 	"log"
 	"math"
 	"math/rand"
+	"net/url"
 	"strings"
 	"syscall/js"
 
@@ -23,11 +24,31 @@ import (
 var assets embed.FS
 
 const (
-	screenWidth  = 1280
-	screenHeight = 720
-	maxLife      = 100
-	channel      = "kanekolumi"
+	screenWidth    = 1280
+	screenHeight   = 720
+	maxLife        = 100
+	defaultChannel = "kanekolumi"
 )
+
+func getChannelFromURL(fallback string) string {
+	location := js.Global().Get("location")
+	if !location.Truthy() {
+		return fallback
+	}
+	search := location.Get("search").String()
+	if len(search) <= 1 {
+		return fallback
+	}
+	values, err := url.ParseQuery(search[1:])
+	if err != nil {
+		return fallback
+	}
+	channel := strings.TrimSpace(values.Get("channel"))
+	if channel == "" {
+		return fallback
+	}
+	return strings.ToLower(channel)
+}
 
 // represent a simple 2D entity
 type Entity2D struct {
@@ -140,6 +161,7 @@ func main() {
 	game.life = maxLife
 	game.nbCandy = 0
 	game.throwChannel = make(chan bool, 100)
+	channelName := getChannelFromURL(defaultChannel)
 
 	// init the audio context and load the sound effect
 	game.audioContext = audio.NewContext(48000)
@@ -193,7 +215,7 @@ func main() {
 
 	// init the twitch chat integration
 	twitch := &Twitch{
-		channel:      channel,
+		channel:      channelName,
 		username:     "justinfan12345",
 		password:     "oauth:1234567890",
 		throwChannel: game.throwChannel,

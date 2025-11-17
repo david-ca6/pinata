@@ -1,7 +1,5 @@
 #! /bin/bash
 
-cd src
-go mod tidy
-go build -o ../dist/app .
-cd ..
-./dist/app
+sh build_web.sh
+cd dist
+python3 -m http.server 8000
