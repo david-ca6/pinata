@@ -11,13 +11,30 @@ Type !throw in lumi's twitch chat to throw a lemon.
     - ebiten
 
 ## how to run
+1. In the code, edit the channel variable to the name of the twitch channel you want to use.
+
+2. Build the game:  
     On Linux & MacOS:
     ```bash
-    ./run.sh
+    ./build_web.sh
     ```
-    On Windows:
+    or
     ```bash
-      go run main.go
+    build_web.bat
     ```
+3. Run the game:  
+    You will need to have a web server to run the pinata, or host it somewhere, if you have python you can run the following command to start a simple web server:
+    ```bash
+    python -m http.server 8000
+    ```
+    if you don't have python you can use any other web server.
 
-    - 
+4. Add to OBS:
+    Add a browser source to the OBS scene and set the URL to the URL of the web server with the correct port, for example: http://127.0.0.1:8000
+
+## Demo Version
+[Demo Version linked to Kaneko Lumi's twitch chat](https://ca6.dev/stream/pinatalumi/)
+
+### How to use
+Include the demo version as a source browser in OBS "https://ca6.dev/stream/pinatalumi/".
+Once done, the pinata will react to the !throw command in Kaneko Lumi's twitch chat.
